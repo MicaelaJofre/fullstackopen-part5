@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import Togglable from './Togglable'
+import PropTypes from 'prop-types'
 
 const LoginForm = ({ createUser }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    LoginForm.propTypes = {
+        createUser: PropTypes.func.isRequired
+    }
 
     const handleLogin = (event) => {
         event.preventDefault()

@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import Togglable from './Togglable'
+import PropTypes from 'prop-types'
 
 const BlogForm = ({ createBlog, user }) => {
     const [newTitle, setNewTitle] = useState('')
     const [newAuthor, setNewAuthor] = useState('')
     const [newUrl, setNewUrl] = useState('')
+
+    BlogForm.propTypes = {
+        createBlog: PropTypes.func.isRequired,
+        user: PropTypes.object.isRequired
+    }
 
     const handleCreateBlog = (event) => {
         event.preventDefault()

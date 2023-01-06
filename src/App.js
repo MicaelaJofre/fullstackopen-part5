@@ -14,9 +14,16 @@ const App = () => {
   const [messageNotification, setMessageNotification] = useState({ message: null, status: null })
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs(blogs)
-    )
+
+    const sortPostsByLikes = (posts) => {
+      return posts.sort((a, b) => b.likes - a.likes)
+    }
+
+    const getBlogs = async () => {
+      const blogs = await blogService.getAll()
+      setBlogs(sortPostsByLikes(blogs))
+    }
+    getBlogs()
   }, [])
 
   useEffect(() => {
@@ -79,6 +86,42 @@ const App = () => {
     }
   }
 
+  const updateBlog = async (blog) => {
+
+    try {
+      const newBlog = {
+        user: blog.user.id,
+        likes: blog.likes + 1,
+        author: blog.author,
+        title: blog.title,
+        url: blog.url
+      }
+
+      const updateBlog = await blogService.update(blog.id, newBlog)
+      setBlogs(blogs.map(blog => blog.id === updateBlog.id ? updateBlog : blog))
+
+    } catch (error) {
+      setMessageNotification({ message: 'Error liking on blog', status: 'error' })
+      setTimeout(() => {
+        setMessageNotification({ message: null, status: null })
+      }, 5000)
+    }
+  }
+
+  const deleteBlog = async (blog) => {
+
+    try {
+      if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+        await blogService.remove(blog.id)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+      }
+    } catch (error) {
+      setMessageNotification({ message: 'Error deleting blog', status: 'error' })
+      setTimeout(() => {
+        setMessageNotification({ message: null, status: null })
+      }, 5000)
+    }
+  }
 
 
 
@@ -93,9 +136,13 @@ const App = () => {
 
       }
       <br />
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user} />
-      )}
+      {
+        user
+          ? blogs?.map(blog =>
+            <Blog key={blog.id} blog={blog} handleLikes={updateBlog} handleDelete={deleteBlog} user={user} />
+          )
+          : null
+      }
     </div>
   )
 }
