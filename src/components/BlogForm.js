@@ -1,40 +1,32 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Togglable from './Togglable'
 import PropTypes from 'prop-types'
 
 const BlogForm = ({ createBlog, user }) => {
-    const [newTitle, setNewTitle] = useState('')
-    const [newAuthor, setNewAuthor] = useState('')
-    const [newUrl, setNewUrl] = useState('')
 
-    BlogForm.propTypes = {
-        createBlog: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired
-    }
+    const [visible, setVisible] = useState(false)
 
-    const handleCreateBlog = (event) => {
-        event.preventDefault()
-        createBlog({
-            title: newTitle,
-            author: newAuthor,
-            url: newUrl
-        })
-        setNewTitle('')
-        setNewAuthor('')
-        setNewUrl('')
-    }
+    const Children = () => {
 
-    const handleSingOut = () => {
-        window.localStorage.removeItem('loggedBlogappUser')
-        window.location.reload()
-    }
+        const [newTitle, setNewTitle] = useState('')
+        const [newAuthor, setNewAuthor] = useState('')
+        const [newUrl, setNewUrl] = useState('')
 
-    return (
-        <div>
-            <h1>Blogs</h1>
-            <span>{user.name} logged in </span>
-            <button onClick={handleSingOut}>Logout</button>
-            <Togglable buttonLabel='Create a new blog'>
+        const handleCreateBlog = (event) => {
+            event.preventDefault()
+            createBlog({
+                title: newTitle,
+                author: newAuthor,
+                url: newUrl
+            })
+            setNewTitle('')
+            setNewAuthor('')
+            setNewUrl('')
+            setVisible(true)
+        }
+
+        return (
+            <>
                 <h2>Create a new blog</h2>
                 <form onSubmit={handleCreateBlog}>
                     <div>
@@ -66,6 +58,29 @@ const BlogForm = ({ createBlog, user }) => {
                     </div>
                     <button type="submit">Create</button>
                 </form>
+            </>
+        )
+    }
+
+    BlogForm.propTypes = {
+        createBlog: PropTypes.func.isRequired,
+        user: PropTypes.object.isRequired
+    }
+
+
+
+    const handleSingOut = () => {
+        window.localStorage.removeItem('loggedBlogappUser')
+        window.location.reload()
+    }
+
+    return (
+        <div>
+            <h1>Blogs</h1>
+            <span>{user.name} logged in </span>
+            <button onClick={handleSingOut}>Logout</button>
+            <Togglable buttonLabel='Create a new blog' closeForm={visible}>
+                <Children />
             </Togglable>
         </div>
 

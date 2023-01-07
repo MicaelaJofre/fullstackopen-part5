@@ -5,7 +5,7 @@ module.exports = {
         node: true,
         'jest/globals': true,
     },
-    extends: ['eslint:recommended', 'plugin:react/recommended', "plugin:cypress/recommended"],
+    extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:cypress/recommended'],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
@@ -15,7 +15,7 @@ module.exports = {
     },
     plugins: ['react', 'jest'],
     rules: {
-        indent: ['error', 'tab'],
+        indent: ['error', 4],
         'linebreak-style': ['error', 'windows'],
         quotes: ['error', 'single'],
         semi: ['error', 'never'],

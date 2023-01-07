@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 
-const Togglable = ({ children, buttonLabel }) => {
+const Togglable = ({ children, buttonLabel, closeForm }) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -13,6 +13,13 @@ const Togglable = ({ children, buttonLabel }) => {
 
     const hideWhenVisible = { display: visible ? 'none' : '' }
     const showWhenVisible = { display: visible ? '' : 'none' }
+
+    useEffect(() => {
+        if (closeForm) {
+            setVisible(false)
+        }
+    }, [closeForm])
+
 
     return (
         <div>

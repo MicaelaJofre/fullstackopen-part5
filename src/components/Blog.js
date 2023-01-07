@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const Blog = ({ blog, user, handleLikes, handleDelete }) => {
 
@@ -16,16 +16,16 @@ const Blog = ({ blog, user, handleLikes, handleDelete }) => {
             </div>
             {
                 show &&
-        <div>
-            <div>Author: {blog.author}</div>
-            <div>Url: {blog.url}</div>
-            <div>
-            Likes: {blog.likes}
-                <button onClick={() => handleLikes(blog)}>like</button>
-            </div>
-            <div>User: {user.name}</div>
-            <button onClick={() => handleDelete(blog)}>Remove</button>
-        </div>
+                <div>
+                    <div>Author: {blog.author}</div>
+                    <div>Url: {blog.url}</div>
+                    <div>
+                        Likes: {blog.likes}
+                        <button onClick={() => handleLikes(blog)}>like</button>
+                    </div>
+                    <div>User: {user.name}</div>
+                    <button onClick={() => handleDelete(blog)}>Remove</button>
+                </div>
             }
         </div>
 

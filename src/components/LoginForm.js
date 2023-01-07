@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Togglable from './Togglable'
 import PropTypes from 'prop-types'
 
