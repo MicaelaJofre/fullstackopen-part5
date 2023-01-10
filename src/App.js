@@ -130,7 +130,10 @@ const App = () => {
             <Notification messageNotification={messageNotification} />
             {
                 user
-                    ? <BlogForm createBlog={addBlog} user={user} />
+                    ? <><h1>Blogs</h1>
+                        <span>{user.name} logged in </span>
+                        <BlogForm createBlog={addBlog} />
+                    </>
 
                     : <LoginForm createUser={addUser} />
 

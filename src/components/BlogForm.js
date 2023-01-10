@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Togglable from './Togglable'
 import PropTypes from 'prop-types'
 
-const BlogForm = ({ createBlog, user }) => {
+const BlogForm = ({ createBlog }) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -32,6 +32,7 @@ const BlogForm = ({ createBlog, user }) => {
                     <div>
                         title:
                         <input
+                            id='title'
                             type='text'
                             name='title'
                             value={newTitle}
@@ -41,6 +42,7 @@ const BlogForm = ({ createBlog, user }) => {
                     <div>
                         author:
                         <input
+                            id='author'
                             type='text'
                             name='author'
                             value={newAuthor}
@@ -50,6 +52,7 @@ const BlogForm = ({ createBlog, user }) => {
                     <div>
                         url:
                         <input
+                            id='url'
                             type='text'
                             name='url'
                             value={newUrl}
@@ -63,8 +66,7 @@ const BlogForm = ({ createBlog, user }) => {
     }
 
     BlogForm.propTypes = {
-        createBlog: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired
+        createBlog: PropTypes.func.isRequired
     }
 
 
@@ -76,8 +78,6 @@ const BlogForm = ({ createBlog, user }) => {
 
     return (
         <div>
-            <h1>Blogs</h1>
-            <span>{user.name} logged in </span>
             <button onClick={handleSingOut}>Logout</button>
             <Togglable buttonLabel='Create a new blog' closeForm={visible}>
                 <Children />
