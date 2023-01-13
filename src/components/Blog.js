@@ -9,7 +9,7 @@ const Blog = ({ blog, username, handleLikes, handleDelete }) => {
     }
 
     return (
-        <div key={blog.id} className='blogList' >
+        <div key={blog.id} className='blogList blog' >
             <div className='blogList'>
                 <span>{blog.title} -  </span>
                 <span>Author: {blog.author}</span>
